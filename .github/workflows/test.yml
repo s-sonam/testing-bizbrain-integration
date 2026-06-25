@@ -9,6 +9,13 @@ jobs:
         env:
           BIZBRAIN_API_KEY: ${{ secrets.BIZBRAIN_API_KEY }}
         run: |
+          if [ -z "$BIZBRAIN_API_KEY" ]; then
+          echo "API key is EMPTY"
+          exit 1
+          else
+            echo "API key exists"
+            echo "Length: ${#BIZBRAIN_API_KEY}"
+          fi
           curl https://platform.bizbrain.app/api/v1/chat/completions \
             -H "Authorization: Bearer $BIZBRAIN_API_KEY" \
             -H "Content-Type: application/json" \
